@@ -62,7 +62,9 @@ import {
 import {
     FlyControls
 } from 'three/examples/jsm/controls/FlyControls'
-import TWEEN from './js/tween.module.min.js'
+import {
+    TWEEN
+} from './js/tween.module.min.js'
 
 let container, stats;
 
@@ -209,7 +211,7 @@ async function init() {
     scene = new Scene()
     // #雾气
     let cubeTextureLoader = new CubeTextureLoader();
-    let cubeTexture = cubeTextureLoader.load('/assets/bgc01.jpg');
+    let cubeTexture = cubeTextureLoader.load('/bgc01.jpg');
     //需要把色彩空间编码改一下，原因我上一篇说过的
     cubeTexture.encoding = sRGBEncoding;
     console.log(cubeTexture, 'cubeTexture')
@@ -248,7 +250,7 @@ async function init() {
     controls.update();
 
     // 添加城市
-    city = await FBXLoaderApi('/assets/shanghai-new.FBX')
+    city = await FBXLoaderApi('/shanghai-new.FBX')
 
     let newCity = setCity(city)
     // 创建场景容器
@@ -263,7 +265,7 @@ async function init() {
     scene.add(effectGroup);
     setDfmz()
     // 创建直升飞机
-    floor = await FBXLoaderApi('/assets/floor.FBX')
+    floor = await FBXLoaderApi('/floor.FBX')
     floor.scale.set(0.07, 0.07, 0.07)
     floor.rotation.y = -Math.PI / 2
     floor.position.set(0, 1800, 0);

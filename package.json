@@ -1,25 +1,16 @@
 {
-  "name": "threeView",
-  "version": "1.0.0",
-  "description": "",
-  "main": "./src/index.js",
-  "dependencies": {
-    "parcel-bundler": "^1.12.5",
-    "three": "^0.139.2"
+  "name": "vite-project",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "devDependencies": {
-    "parcel": "^2.4.1"
+    "vite": "^2.9.5"
   },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "parcel index.html -p 8082",
-    "build": "parcel build index.html"
-  },
-  "staticFiles": {
-    "staticPath": "public",
-    "watcherGlob": "**"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "dependencies": {
+    "three": "^0.139.2"
+  }
 }
