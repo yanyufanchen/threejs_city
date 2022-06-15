@@ -250,7 +250,7 @@ async function init() {
     controls.update();
 
     // 添加城市
-    city = await FBXLoaderApi('/shanghai-new.FBX')
+    city = await FBXLoaderApi('./shanghai-new.FBX')
 
     let newCity = setCity(city)
     // 创建场景容器
@@ -265,7 +265,7 @@ async function init() {
     scene.add(effectGroup);
     setDfmz()
     // 创建直升飞机
-    floor = await FBXLoaderApi('/floor.FBX')
+    floor = await FBXLoaderApi('./floor.FBX')
     floor.scale.set(0.07, 0.07, 0.07)
     floor.rotation.y = -Math.PI / 2
     floor.position.set(0, 1800, 0);
@@ -308,7 +308,7 @@ async function init() {
 function animate() {
     requestAnimationFrame(animate)
     renderer.render(scene, camera)
-    controls.update()
+    // controls.update()
     // 播放特效
     const dt = clock.getDelta();
     effectAnimation(dt)
@@ -394,15 +394,21 @@ function tweenRun() {
         y: floor.position.y, // 高度不变
         z: helper.position.z
     }, 5000);
+    // console.log(controls,'controls')
     tweenfloor.onUpdate(function (object) {
-        camera.position.x = object.x + 1000;
-        camera.position.y = object.y + 1000;
-        camera.position.z = object.z + 1000;
-        camera.lookAt(helper.position)
+        
         controls.target.x = helper.position.x;
         controls.target.y = helper.position.y;
         controls.target.z = helper.position.z;
-        controls.update();
+        // controls.update();
+
+        controls.object.position.x = object.x + 1000;
+        controls.object.position.y = object.y + 1000;
+        controls.object.position.z = object.z + 1000;
+        // controls.object.lookAt(controls.target.x,controls.target.y,controls.target.z)
+
+
+
         if (floor.position.x == helper.position.x) {
             console.log('到达终点')
             runFlag = false
@@ -436,7 +442,7 @@ function createWater() {
 
     }
 
-    const texture = new TextureLoader().load('/assets/textures/water.jpg');
+    const texture = new TextureLoader().load('./textures/water.jpg');
     texture.wrapS = texture.wrapT = RepeatWrapping;
     texture.repeat.set(5, 5);
 
@@ -454,10 +460,10 @@ function createWater() {
 function createLight() {
     const Alight = new AmbientLight(0x404040); // soft white light
     scene.add(Alight);
-    const directionalLight = new DirectionalLight(0xffffff, 0.5);
+    const directionalLight = new DirectionalLight(0xffffff, 0.7);
     directionalLight.position.set(0, 5000, 0);
     scene.add(directionalLight);
-    const Hlight = new HemisphereLight(0xffffbb, 0x080820, 1);
+    const Hlight = new HemisphereLight(0xffffbb, 0x080820, 1.5);
     scene.add(Hlight);
     // 东方明珠灯光
     let dfmzPostion = [-15117, 3820, 1820]
@@ -547,17 +553,13 @@ function setCity() {
             var line = new LineSegments(edges, edgesMaterial);
             line.name = 'cityline'
             line.material.transparent = true;
-            line.material.opacity = 0.4;
+            line.material.opacity = 0.3;
             line.layers.enable(BLOOM_SCENE)
             item.children[0].add(line)
-
         }
         if (item.name === 'drive') { // 
-
         }
-
     })
-
     return city
 }
 
@@ -669,11 +671,8 @@ function renderBloom(mask) {
 
 function disposeMaterial(obj) {
     if (obj.material) {
-
         obj.material.dispose();
-
     }
-
 }
 
 function darkenNonBloomed(obj) {

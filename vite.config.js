@@ -5,5 +5,6 @@ export default {
         // proxy: { // 配置本地代理地址
         //   '/dev': 'http://xxx.xxx.com/api'
         // }
-    }
+    },
+    base: './',
 }
